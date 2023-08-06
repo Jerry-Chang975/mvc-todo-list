@@ -1,8 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
+const db = require('../models');
+const todo = db.todo;
+
 router.get('/', (req, res) => {
-  res.send('todos');
+  return todo
+    .findAll()
+    .then((todos) => {
+      res.send(todos);
+    })
+    .catch((err) => {
+      res.status(422).json(err);
+    });
 });
 
 router.get('/new', (req, res) => {
