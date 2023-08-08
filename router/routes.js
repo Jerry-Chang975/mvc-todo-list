@@ -43,11 +43,22 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:id/edit', (req, res) => {
-  res.send('edit page');
+  const id = req.params.id;
+  return todo
+    .findByPk(id, { attributes: ['id', 'name'], raw: true })
+    .then((todo) => res.render('edit', { todo }))
+    .catch((err) => console.log(err));
 });
 
 router.put('/:id', (req, res) => {
-  res.send(`update todos: ${req.params.id}`);
+  const id = req.params.id;
+  const name = req.body.name;
+  return todo
+    .update({ name }, { where: { id } })
+    .then((result) => {
+      res.redirect(`/todos/${id}`);
+    })
+    .catch((err) => console.log(err));
 });
 
 router.delete('/:id', (req, res) => {
