@@ -23,7 +23,13 @@ router.get('/new', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  res.send(`todos: ${req.params.id}`);
+  const id = req.params.id;
+  return todo
+    .findByPk(id, { raw: true })
+    .then((todo) => {
+      res.render('detail', { todo });
+    })
+    .catch((err) => console.log(err));
 });
 
 router.post('/', (req, res) => {
