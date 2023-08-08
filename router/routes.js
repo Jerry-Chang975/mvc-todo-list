@@ -6,9 +6,12 @@ const todo = db.todo;
 
 router.get('/', (req, res) => {
   return todo
-    .findAll()
+    .findAll({
+      attributes: ['id', 'name'],
+      raw: true,
+    })
     .then((todos) => {
-      res.send(todos);
+      res.render('todos', { todos });
     })
     .catch((err) => {
       res.status(422).json(err);
