@@ -18,8 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'todo',
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
     }
   );
   return todo;

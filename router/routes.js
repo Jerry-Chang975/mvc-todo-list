@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/new', (req, res) => {
-  res.send('new todos page');
+  res.render('new');
 });
 
 router.get('/:id', (req, res) => {
@@ -27,7 +27,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  res.send('new todos');
+  const name = req.body.name;
+  return todo
+    .create({ name })
+    .then(() => {
+      res.redirect('/todos');
+    })
+    .catch((err) => console.log(err));
 });
 
 router.get('/:id/edit', (req, res) => {

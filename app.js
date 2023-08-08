@@ -7,6 +7,8 @@ app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
+app.use(express.urlencoded({ extended: true }));
+
 // import routes
 const todosRoute = require('./router/routes');
 app.use('/todos', todosRoute);
