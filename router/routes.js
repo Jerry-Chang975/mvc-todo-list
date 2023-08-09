@@ -62,7 +62,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  res.send(`delete todos: ${req.params.id}`);
+  const id = req.params.id;
+  return todo
+    .destroy({ where: { id } })
+    .then(() => {
+      res.redirect('/todos');
+    })
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;
