@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
       raw: true,
     })
     .then((todos) => {
-      res.render('todos', { todos });
+      res.render('todos', { todos, message: req.flash('success') });
     })
     .catch((err) => {
       res.status(422).json(err);
@@ -27,17 +27,17 @@ router.get('/:id', (req, res) => {
   return todo
     .findByPk(id, { raw: true })
     .then((todo) => {
-      res.render('detail', { todo });
+      res.render('detail', { todo, message: req.flash('success') });
     })
     .catch((err) => console.log(err));
 });
 
 router.post('/', (req, res) => {
   const { isComplete, name } = req.body;
-  console.log(isComplete, name);
   return todo
     .create({ name, isComplete: isComplete ? 1 : 0 })
     .then(() => {
+      req.flash('success', 'Add new successfully!');
       res.redirect('/todos');
     })
     .catch((err) => console.log(err));
@@ -57,6 +57,7 @@ router.put('/:id', (req, res) => {
   return todo
     .update({ name, isComplete: isComplete ? 1 : 0 }, { where: { id } })
     .then((result) => {
+      req.flash('success', 'Update successfully!');
       res.redirect(`/todos/${id}`);
     })
     .catch((err) => console.log(err));
@@ -67,6 +68,7 @@ router.delete('/:id', (req, res) => {
   return todo
     .destroy({ where: { id } })
     .then(() => {
+      req.flash('success', 'Delete successfully!');
       res.redirect('/todos');
     })
     .catch((err) => console.log(err));

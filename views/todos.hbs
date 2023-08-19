@@ -1,3 +1,6 @@
+{{#if message}}
+<div>{{message}}</div>
+{{/if}}
 {{#each todos}}
   <div>
     <input id='item-{{this.id}}' type='checkbox' disabled {{#if this.isComplete}}checked{{/if}} />

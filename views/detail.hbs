@@ -1,3 +1,6 @@
+{{#if message}}
+<div>{{message}}</div>
+{{/if}}
 <input id='item-{{todo.id}}' type='checkbox' disabled {{#if todo.isComplete}}checked{{/if}}/>
 <label for='item-{{todo.id}}'>{{todo.name}}</label>
 <p>Create time:{{todo.createdAt}}</p>
