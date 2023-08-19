@@ -1,6 +1,6 @@
 {{#each todos}}
   <div>
-    <input id='item-{{this.id}}' type='checkbox' value='' />
+    <input id='item-{{this.id}}' type='checkbox' disabled {{#if this.isComplete}}checked{{/if}} />
     <label for='item-{{this.id}}'>{{this.name}}</label>
     <a href='./todos/{{this.id}}'>detail</a>
     <a href='./todos/{{this.id}}/edit'>edit</a>

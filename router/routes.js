@@ -7,7 +7,7 @@ const todo = db.todo;
 router.get('/', (req, res) => {
   return todo
     .findAll({
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name', 'isComplete'],
       raw: true,
     })
     .then((todos) => {
@@ -33,9 +33,10 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const name = req.body.name;
+  const { isComplete, name } = req.body;
+  console.log(isComplete, name);
   return todo
-    .create({ name })
+    .create({ name, isComplete: isComplete ? 1 : 0 })
     .then(() => {
       res.redirect('/todos');
     })
@@ -45,16 +46,16 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id;
   return todo
-    .findByPk(id, { attributes: ['id', 'name'], raw: true })
+    .findByPk(id, { attributes: ['id', 'name', 'isComplete'], raw: true })
     .then((todo) => res.render('edit', { todo }))
     .catch((err) => console.log(err));
 });
 
 router.put('/:id', (req, res) => {
   const id = req.params.id;
-  const name = req.body.name;
+  const { name, isComplete } = req.body;
   return todo
-    .update({ name }, { where: { id } })
+    .update({ name, isComplete: isComplete ? 1 : 0 }, { where: { id } })
     .then((result) => {
       res.redirect(`/todos/${id}`);
     })
