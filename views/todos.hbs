@@ -1,17 +1,16 @@
-<ul>
-  {{#each todos}}
-    <li>
-      {{this.name}}
-      <a href='./todos/{{this.id}}'>detail</a>
-      <a href='./todos/{{this.id}}/edit'>edit</a>
-      <form
-        action='./todos/{{this.id}}?_method=DELETE'
-        method='post'
-        style='display: inline'
-      >
-        <button type='submit'>刪除</button>
-      </form>
-    </li>
-  {{/each}}
-</ul>
+{{#each todos}}
+  <div>
+    <input id='item-{{this.id}}' type='checkbox' value='' />
+    <label for='item-{{this.id}}'>{{this.name}}</label>
+    <a href='./todos/{{this.id}}'>detail</a>
+    <a href='./todos/{{this.id}}/edit'>edit</a>
+    <form
+      action='./todos/{{this.id}}?_method=DELETE'
+      method='post'
+      style='display: inline'
+    >
+      <button type='submit'>刪除</button>
+    </form>
+  </div>
+{{/each}}
 <a href='./todos/new'>Create</a>

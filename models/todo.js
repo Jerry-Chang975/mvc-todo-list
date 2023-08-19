@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   todo.init(
     {
       name: DataTypes.STRING,
+      isComplete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
     },
     {
       sequelize,
