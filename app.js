@@ -5,6 +5,11 @@ const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
 
+// get env variables
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const router = require('./router');
 const messageHandler = require('./middleware/message-handler');
 const errorHandler = require('./middleware/error-handler');
@@ -19,7 +24,7 @@ app.use(methodOverride('_method'));
 
 app.use(
   session({
-    secret: 'ThisIsSecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
