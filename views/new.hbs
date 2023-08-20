@@ -1,6 +1,4 @@
-{{#if error}}
-  <div style='color:red'>{{error}}</div>
-{{/if}}
+{{> message}}
 <form action='/todos' method='post'>
   <input type='checkbox' name='isComplete' />
   <input type='text' placeholder='name' name='name' />

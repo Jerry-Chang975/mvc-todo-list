@@ -5,6 +5,10 @@ const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
 
+const router = require('./router');
+const messageHandler = require('./middleware/message-handler');
+const errorHandler = require('./middleware/error-handler');
+
 const { engine } = require('express-handlebars');
 app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
@@ -22,9 +26,11 @@ app.use(
 );
 app.use(flash());
 
-// import routes
-const router = require('./router');
+app.use(messageHandler);
+
 app.use(router);
+
+app.use(errorHandler);
 
 app.listen(port, () =>
   console.log(`Server is running on http://localhost:${port}`)
