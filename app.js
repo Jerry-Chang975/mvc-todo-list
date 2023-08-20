@@ -23,10 +23,8 @@ app.use(
 app.use(flash());
 
 // import routes
-const todosRoute = require('./router/routes');
-app.use('/todos', todosRoute);
-
-app.get('/', (req, res) => res.render('index'));
+const router = require('./router');
+app.use(router);
 
 app.listen(port, () =>
   console.log(`Server is running on http://localhost:${port}`)
