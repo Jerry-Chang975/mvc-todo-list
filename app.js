@@ -3,7 +3,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const app = express();
-const port = 3000;
+const port = 8080;
 
 // get env variables
 if (process.env.NODE_ENV !== 'production') {

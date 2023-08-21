@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "dbmigrate": "npx sequelize db:migrate && npx sequelize db:seed:all"
+    "migrate": "npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "keywords": [
     "todo-list"
@@ -26,5 +26,7 @@
     "sequelize": "^6.30.0",
     "sequelize-cli": "^6.6.0"
   },
-  "engines": { "node": "^18.15.0" }
+  "engines": {
+    "node": "^18.15.0"
+  }
 }
