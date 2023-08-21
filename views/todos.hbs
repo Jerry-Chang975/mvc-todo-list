@@ -1,4 +1,5 @@
 {{> message}}
+<a href='./todos/new'>Create</a>
 {{#each todos}}
   <div>
     <input id='item-{{this.id}}' type='checkbox' disabled {{#if this.isComplete}}checked{{/if}} />
@@ -14,4 +15,12 @@
     </form>
   </div>
 {{/each}}
-<a href='./todos/new'>Create</a>
+<form action="/todos?page=" method="get" style="display: inline">
+<input name="page" type="hidden" value="{{todos.prevPage}}">
+<button type="submit" {{#unless todos.prevPage}}disabled{{/unless}}>prev</button>
+</form>
+<form action="/todos" method="get" style="display: inline">
+<input name="page" type="hidden" value="{{todos.nextPage}}">
+<button type="submit" {{#unless todos.nextPage}}disabled{{/unless}}>next</button>
+</form>
+<span>page: {{todos.page}}</span>

@@ -5,12 +5,19 @@ const db = require('../models');
 const todo = db.todo;
 
 router.get('/', (req, res, next) => {
+  let { page } = req.query;
+  page = parseInt(page) || 1;
   return todo
     .findAll({
       attributes: ['id', 'name', 'isComplete'],
       raw: true,
+      offset: (page - 1) * 10,
+      limit: 10,
     })
     .then((todos) => {
+      todos.page = page;
+      todos.prevPage = page > 1 ? page - 1 : null;
+      todos.nextPage = todos.length === 10 ? page + 1 : null;
       res.render('todos', {
         todos,
       });
