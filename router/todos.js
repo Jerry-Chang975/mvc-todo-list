@@ -5,21 +5,24 @@ const db = require('../models');
 const todo = db.todo;
 
 router.get('/', (req, res, next) => {
-  let { page } = req.query;
+  let { page, limit } = req.query;
   page = parseInt(page) || 1;
+  limit = parseInt(limit) || 10;
+  console.log(limit);
   return todo
-    .findAll({
+    .findAndCountAll({
       attributes: ['id', 'name', 'isComplete'],
       raw: true,
-      offset: (page - 1) * 10,
-      limit: 10,
+      offset: (page - 1) * limit,
+      limit,
     })
-    .then((todos) => {
-      todos.page = page;
-      todos.prevPage = page > 1 ? page - 1 : null;
-      todos.nextPage = todos.length === 10 ? page + 1 : null;
+    .then((result) => {
+      const { count, rows } = result;
+      rows.page = page;
+      rows.prevPage = page > 1 ? page - 1 : null;
+      rows.nextPage = rows.length === 10 ? page + 1 : null;
       res.render('todos', {
-        todos,
+        todos: rows,
       });
     })
     .catch((err) => {

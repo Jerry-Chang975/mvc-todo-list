@@ -15,7 +15,8 @@
     </form>
   </div>
 {{/each}}
-<form action="/todos?page=" method="get" style="display: inline">
+<span>item: </span> 
+<form action="/todos" method="get" style="display: inline">
 <input name="page" type="hidden" value="{{todos.prevPage}}">
 <button type="submit" {{#unless todos.prevPage}}disabled{{/unless}}>prev</button>
 </form>
