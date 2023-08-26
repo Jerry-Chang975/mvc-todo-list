@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../models');
-const todo = db.todo;
+const todo = db.Todo;
 
 router.get('/', (req, res, next) => {
   let { page, limit } = req.query;

@@ -1,0 +1,50 @@
+{{> message}}
+<style>
+  div { margin: 1rem 0; }
+</style>
+
+<h3>Register</h3>
+<form action='/users' method='post'>
+  <div>
+    <label for='name'>Name</label>
+    <input
+      id='name'
+      type='text'
+      name='name'
+      placeholder='Enter name'
+      required
+    />
+  </div>
+  <div>
+    <label for='email'>Email</label>
+    <input
+      id='email'
+      type='text'
+      name='email'
+      placeholder='Enter email'
+      required
+    />
+  </div>
+  <div>
+    <label for='password'>Password</label>
+    <input
+      id='password'
+      type='password'
+      name='password'
+      placeholder='Enter password'
+      required
+    />
+  </div>
+  <div>
+    <label for='password-check'>Confirm password</label>
+    <input
+      id='passwordCheck'
+      name="passwordCheck"
+      type='text'
+      placeholder='Confirm password'
+      required
+    />
+  </div>
+  <button type='submit'>Register</button>
+  <div>Already have an account? <a href='/login'>Login</a></div>
+</form>
