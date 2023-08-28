@@ -4,8 +4,6 @@ const passport = require('passport');
 const db = require('../models');
 const User = db.User;
 
-console.log(User);
-
 router.get('/register', (req, res, next) => {
   res.render('register');
 });
@@ -28,6 +26,13 @@ router.post(
   }
 );
 
-router.post('/logout', (req, res, next) => {});
+router.post('/logout', (req, res) => {
+  req.logout((error) => {
+    if (error) {
+      next(error);
+    }
+    return res.redirect('/login');
+  });
+});
 
 module.exports = router;

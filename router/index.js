@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+
+passport.deserializeUser((user, done) => {
+  done(null, { id: user.id });
+});
 
 const todos = require('./todos');
 const users = require('./users');
 
-const passport = require('passport');
+const authHandler = require('../middleware/auth-handler');
+
 const LocalStrategy = require('passport-local');
 
 const db = require('../models');
@@ -38,7 +44,7 @@ passport.serializeUser((user, done) => {
 });
 
 router.use(users);
-router.use('/todos', todos);
+router.use('/todos', authHandler, todos);
 
 router.get('/', (req, res) => res.render('index'));
 
