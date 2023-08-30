@@ -24,7 +24,7 @@ passport.use(
       raw: true,
     })
       .then((user) => {
-        if (!user || user.passport !== password) {
+        if (!user || user.password !== password) {
           return done(null, false, {
             message: 'Incorrect username or password.',
           });

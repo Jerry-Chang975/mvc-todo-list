@@ -26,14 +26,14 @@ app.use(methodOverride('_method'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 app.use(flash());
 
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 
 app.use(messageHandler);
 
