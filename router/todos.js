@@ -93,7 +93,7 @@ router.put('/:id', (req, res, next) => {
   const id = req.params.id;
   const userId = req.user.id;
   const { name, isComplete } = req.body;
-  return todo.findByPk(id, { raw: true }).then((td) => {
+  return todo.findByPk(id).then((td) => {
     if (!td) {
       req.flash('error', 'Todo not found!');
       return res.redirect('/todos');
@@ -102,8 +102,7 @@ router.put('/:id', (req, res, next) => {
       req.flash('error', 'Permission denied!');
       return res.redirect('/todos');
     }
-    todo
-      .update({ name, isComplete: isComplete ? 1 : 0 }, { where: { id } })
+    td.update({ name, isComplete: isComplete ? 1 : 0 })
       .then((result) => {
         req.flash('success', 'Update successfully!');
         res.redirect(`/todos/${id}`);
@@ -118,7 +117,7 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
   const userId = req.user.id;
-  return todo.findByPk(id, { raw: true }).then((td) => {
+  return todo.findByPk(id).then((td) => {
     if (!td) {
       req.flash('error', 'Todo not found!');
       return res.redirect('/todos');
@@ -127,8 +126,7 @@ router.delete('/:id', (req, res, next) => {
       req.flash('error', 'Permission denied!');
       return res.redirect('/todos');
     }
-    todo
-      .destroy({ where: { id } })
+    td.destroy()
       .then(() => {
         req.flash('success', 'Delete successfully!');
         res.redirect('/todos');
