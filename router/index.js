@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const bcrypt = require('bcryptjs');
 
 passport.deserializeUser((user, done) => {
   done(null, { id: user.id });
@@ -24,12 +25,19 @@ passport.use(
       raw: true,
     })
       .then((user) => {
-        if (!user || user.password !== password) {
+        if (!user) {
           return done(null, false, {
             message: 'Incorrect username or password.',
           });
         }
-        return done(null, user);
+        bcrypt.compare(password, user.password).then((isMatch) => {
+          if (!isMatch) {
+            return done(null, false, {
+              message: 'Incorrect username or password.',
+            });
+          }
+          return done(null, user);
+        });
       })
       .catch((error) => {
         error.errorMessage = 'login failed';
