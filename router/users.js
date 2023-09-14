@@ -48,6 +48,21 @@ router.post(
   }
 );
 
+// facebook login
+router.get(
+  '/login/facebook',
+  passport.authenticate('facebook', { scope: ['email'] })
+);
+
+router.get(
+  '/oauth2/redirect/facebook',
+  passport.authenticate('facebook', {
+    successRedirect: '/todos',
+    failureRedirect: '/login',
+    failureFlash: true,
+  })
+);
+
 router.post('/logout', (req, res) => {
   req.logout((error) => {
     if (error) {
